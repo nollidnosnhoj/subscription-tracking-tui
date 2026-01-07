@@ -12,7 +12,20 @@ import (
 func (m Model) updateList(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
-		switch msg.String() {
+		key := msg.String()
+
+		// Handle 'gg' key sequence for jump to top
+		if m.pendingKey == "g" {
+			m.pendingKey = ""
+			if key == "g" {
+				// 'gg' - jump to top
+				m.cursor = 0
+				return m, nil
+			}
+			// Not 'gg', continue processing this key normally
+		}
+
+		switch key {
 		case "up", "k":
 			if m.cursor > 0 {
 				m.cursor--
@@ -20,6 +33,15 @@ func (m Model) updateList(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "down", "j":
 			if m.cursor < len(m.subscriptions)-1 {
 				m.cursor++
+			}
+		case "g":
+			// Wait for second 'g' for 'gg' command
+			m.pendingKey = "g"
+			return m, nil
+		case "G":
+			// Jump to bottom
+			if len(m.subscriptions) > 0 {
+				m.cursor = len(m.subscriptions) - 1
 			}
 		case "a":
 			m.view = ViewAdd
@@ -120,7 +142,7 @@ func (m Model) viewList() string {
 	}
 
 	// Help
-	help := "\n[a]dd  [e]dit  [d]elete  [s]pending  e[x]port  [c]onfig  s[y]nc  [r]efresh  [?]help  [q]uit"
+	help := "\n[↑/↓] navigate  [gg/G] top/bottom  [a]dd  [e]dit  [d]elete  [s]pending  e[x]port  [c]onfig  s[y]nc  [?]help  [q]uit"
 	b.WriteString(HelpStyle.Render(help))
 
 	return BoxStyle.Render(b.String())

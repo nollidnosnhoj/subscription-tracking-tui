@@ -137,9 +137,11 @@ func (m Model) viewHelp() string {
 
 	help := `Keyboard Shortcuts:
 
-List View:
-  ↑/k      Move cursor up
+List View (VIM motions supported):
   ↓/j      Move cursor down
+  ↑/k      Move cursor up
+  gg       Jump to first item
+  G        Jump to last item
   a        Add new subscription
   e        Edit selected subscription
   d        Delete selected subscription
@@ -152,30 +154,34 @@ List View:
   q        Quit
 
 Add/Edit Form:
-  Tab      Next field
-  Shift+Tab Previous field
+  ↓/Tab    Next field
+  ↑/Shift+Tab  Previous field
   ←/→      Toggle billing cycle (monthly/yearly)
   Ctrl+S   Save
   Esc      Cancel
 
 Spending View:
-  ←/→      Change month
-  Esc      Back to list
+  ←/h      Previous month
+  →/l      Next month
+  q/Esc    Back to list
 
 Export View:
   Tab      Change format (CSV/JSON)
   Enter    Export
-  Esc      Cancel
+  q/Esc    Cancel
 
 Sync View:
+  ↓/Tab    Next field
+  ↑/Shift+Tab  Previous field
   Ctrl+P   Push to GitHub Gist
   Ctrl+L   Pull from GitHub Gist
-  Esc      Cancel
+  q/Esc    Cancel
 
 Config:
-  Tab      Next field
+  ↓/Tab    Next field
+  ↑/Shift+Tab  Previous field
   Ctrl+S   Save
-  Esc      Cancel
+  q/Esc    Cancel
 `
 	b.WriteString(help)
 	b.WriteString("\n" + HelpStyle.Render("[q/esc/?] back to list"))

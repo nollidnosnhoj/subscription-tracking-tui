@@ -32,6 +32,7 @@ type Model struct {
 	height        int
 	err           error
 	message       string
+	pendingKey    string // For VIM key sequences like 'gg'
 
 	// Sub-models
 	addForm      *AddForm
