@@ -1,3 +1,13 @@
+I wanted something to keep track of my subscriptions without subscribing to another service. 
+
+So I decided to vibe code.
+
+This is the result...
+
+Not really taking suggestions, unless I like it :D 
+
+---
+
 # Subscription Tracker TUI
 
 A terminal-based application for tracking personal subscriptions and managing monthly spending. Built with Go using [Bubbletea](https://github.com/charmbracelet/bubbletea) for the TUI, [SQLC](https://sqlc.dev/) for type-safe SQL, and SQLite for storage.
